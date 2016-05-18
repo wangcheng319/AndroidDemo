@@ -42,6 +42,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btn_retrofit:
                 startActivity(new Intent(MainActivity.this,RetrofitActivity.class));
                 break;
+            case R.id.btn_view_drag_helper:
+
+                break;
+            case R.id.btn_view_hot_fix:
+                break;
 
         }
     }

@@ -97,6 +97,26 @@
             android:onClick="onClick"
             android:textSize="13sp" />
 
+        <Button
+            android:id="@+id/btn_view_drag_helper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:background="@drawable/selector_btn"
+            android:text="ViewDragHelper"
+            android:onClick="onClick"
+            android:textSize="13sp" />
+
+        <Button
+            android:id="@+id/btn_view_hot_fix"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:background="@drawable/selector_btn"
+            android:text="HotFix"
+            android:onClick="onClick"
+            android:textSize="13sp" />
+
     </LinearLayout>
 
 
