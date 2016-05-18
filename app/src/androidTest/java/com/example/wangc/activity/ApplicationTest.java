@@ -1,4 +1,4 @@
-package com.example.wangc.androiddemo;
+package com.example.wangc.activity;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
