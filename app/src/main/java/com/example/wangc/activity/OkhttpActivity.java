@@ -1,8 +1,11 @@
-package com.example.wangc.androiddemo;
+package com.example.wangc.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-
+/**
+ * Created by Wangc on 2016/5/17
+ * E-MAIL:274281610@QQ.COM
+ */
 public class OkhttpActivity extends AppCompatActivity {
 
     @Override

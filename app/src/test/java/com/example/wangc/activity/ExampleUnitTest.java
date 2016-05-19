@@ -1,4 +1,4 @@
-package com.example.wangc.androiddemo;
+package com.example.wangc.activity;
 
 import org.junit.Test;
 

@@ -19,9 +19,9 @@
 
     <item >//定义当button未获得 focus时的形态
         <shape>
-            <gradient android:startColor="#333333" />
-            <stroke android:width="2dp" android:color="#eac100" />
-            <corners android:radius="8dp" />
+            <gradient android:startColor="#8600ff" />
+            <stroke android:width="2dp" android:color="#000000" />
+            <corners android:radius="5dp" />
             <padding android:bottom="10dp" android:left="10dp" android:right="10dp" android:top="10dp" />
         </shape>
     </item>
