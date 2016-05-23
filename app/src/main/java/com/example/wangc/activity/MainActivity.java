@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(new Intent(MainActivity.this,RxAndroidActivity.class));
                 break;
             case R.id.btn_event_bus:
-                startActivity(new Intent(MainActivity.this,RetrofitActivity.class));
+                startActivity(new Intent(MainActivity.this,EventBusActivity.class));
                 break;
             case R.id.btn_ok_http:
                 startActivity(new Intent(MainActivity.this,OkhttpActivity.class));
