@@ -9,4 +9,35 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.wangc.activity.EventBusActivity">
 
+
+    <Button
+        android:id="@+id/send_message_to_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        android:text="send_message_to_view" />
+
+    <Button
+        android:id="@+id/send_message_to_fragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@+id/send_message_to_view"
+        android:text="send_message_to_fragment" />
+
+    <TextView
+        android:id="@+id/event_bus_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:hint="hint text" />
+
+
+    <fragment
+        android:id="@+id/event_bus_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:name="com.example.wangc.fragment.EventBusFragment"
+        android:layout_below="@+id/event_bus_tv" />
 </RelativeLayout>

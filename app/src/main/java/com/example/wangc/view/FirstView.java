@@ -2,7 +2,9 @@ package com.example.wangc.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -12,6 +14,7 @@ import android.view.View;
  */
 public class FirstView extends View {
     private Paint mPaint;
+    private Canvas canvas;
 
 
     public FirstView(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -26,11 +29,24 @@ public class FirstView extends View {
         super(context);
 
         mPaint = new Paint();
+        mPaint.setColor(Color.YELLOW);
+        mPaint.setStyle(Paint.Style.FILL);
+        mPaint.setAntiAlias(true);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
+
         super.onDraw(canvas);
+        canvas.drawColor(Color.BLUE);
+        canvas.translate(canvas.getWidth()/2,canvas.getHeight()/2);
+        canvas.drawCircle(0,0,50,mPaint);
+
+        mPaint.setColor(Color.MAGENTA);
+        Rect rect = new Rect(0,0,400,200);
+        canvas.drawRect(rect ,mPaint);
+
+
     }
 
     @Override
