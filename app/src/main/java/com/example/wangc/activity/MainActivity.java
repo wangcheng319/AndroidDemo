@@ -49,6 +49,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btn_view_hot_fix:
                 break;
+            case R.id.btn_view_volley:
+                startActivity(new Intent(MainActivity.this,VolleyActivity.class));
+                break;
 
         }
     }

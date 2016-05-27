@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.wangc.activity">
 
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -15,13 +18,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.wangc.activity.ViewActivity" />
-        <activity android:name="com.example.wangc.activity.ViewGroupActivity" />
-        <activity android:name="com.example.wangc.activity.EventBusActivity" />
-        <activity android:name="com.example.wangc.activity.OkhttpActivity" />
-        <activity android:name="com.example.wangc.activity.AnimationActivity" />
-        <activity android:name="com.example.wangc.activity.RetrofitActivity" />
-        <activity android:name="com.example.wangc.activity.RxAndroidActivity"></activity>
+        <activity android:name=".ViewActivity" />
+        <activity android:name=".ViewGroupActivity" />
+        <activity android:name=".EventBusActivity" />
+        <activity android:name=".OkhttpActivity" />
+        <activity android:name=".AnimationActivity" />
+        <activity android:name=".RetrofitActivity" />
+        <activity android:name=".RxAndroidActivity" />
+        <activity android:name=".VolleyActivity"></activity>
     </application>
 
 </manifest>

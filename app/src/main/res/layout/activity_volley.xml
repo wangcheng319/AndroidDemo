@@ -7,22 +7,14 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.wangc.activity.AnimationActivity">
+    tools:context="com.example.wangc.activity.VolleyActivity">
 
 
     <Button
-        android:id="@+id/btn_anim_top"
+        android:id="@+id/send_volley_request"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="anim" />
-
-
-    <ImageView
-        android:id="@+id/iv_anim"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:src="@mipmap/ic_launcher" />
-
+        android:text="send_request"
+        android:onClick="onClick"/>
 
 </RelativeLayout>

@@ -117,6 +117,16 @@
             android:onClick="onClick"
             android:textSize="13sp" />
 
+        <Button
+            android:id="@+id/btn_view_volley"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:background="@drawable/selector_btn"
+            android:text="Volley"
+            android:onClick="onClick"
+            android:textSize="13sp" />
+
     </LinearLayout>
 
 
