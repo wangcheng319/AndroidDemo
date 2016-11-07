@@ -13,5 +13,6 @@ public class App extends Application {
         super.onCreate();
         EventBus.getDefault().register(getApplicationContext());
         //hahhahahahah
+        //hehehehhehhe
     }
 }
