@@ -14,5 +14,6 @@ public class App extends Application {
         EventBus.getDefault().register(getApplicationContext());
         //hahhahahahah
         //hehehehhehhe
+        //this is from master
     }
 }
