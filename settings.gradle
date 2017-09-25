@@ -1,1 +1,1 @@
-include ':app', ':magicfilter', ':camera'
+include ':app'

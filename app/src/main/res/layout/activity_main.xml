@@ -1,133 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.wangc.activity.MainActivity">
+    tools:context="vico.xin.mvpdemo.MainActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/tv"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:text="Hello World!"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="AndroidDemo"
-            android:textSize="18sp" />
-
-        <Button
-            android:id="@+id/btn_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:background="@drawable/selector_btn"
-            android:text="View"
-            android:onClick="onClick"
-            android:textSize="13sp" />
-
-        <Button
-            android:id="@+id/btn_view_group"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:background="@drawable/selector_btn"
-            android:text="ViewGroup"
-            android:onClick="onClick"
-            android:textSize="13sp" />
-
-
-        <Button
-            android:id="@+id/btn_animation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:background="@drawable/selector_btn"
-            android:text="Animation "
-            android:onClick="onClick"
-            android:textSize="13sp" />
-
-
-        <Button
-            android:id="@+id/btn_event_bus"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:background="@drawable/selector_btn"
-            android:text="EventBus"
-            android:onClick="onClick"
-            android:textSize="13sp" />
-
-
-
-        <Button
-            android:id="@+id/btn_ok_http"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:background="@drawable/selector_btn"
-            android:text="Okhttp"
-            android:onClick="onClick"
-            android:textSize="13sp" />
-
-
-
-        <Button
-            android:id="@+id/btn_retrofit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:background="@drawable/selector_btn"
-            android:text="Retrofit"
-            android:onClick="onClick"
-            android:textSize="13sp" />
-
-        <Button
-            android:id="@+id/btn_rx_android"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:background="@drawable/selector_btn"
-            android:text="RxAndroid"
-            android:onClick="onClick"
-            android:textSize="13sp" />
-
-        <Button
-            android:id="@+id/btn_view_drag_helper"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:background="@drawable/selector_btn"
-            android:text="ViewDragHelper"
-            android:onClick="onClick"
-            android:textSize="13sp" />
-
-        <Button
-            android:id="@+id/btn_view_hot_fix"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:background="@drawable/selector_btn"
-            android:text="HotFix"
-            android:onClick="onClick"
-            android:textSize="13sp" />
-
-        <Button
-            android:id="@+id/btn_view_volley"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:background="@drawable/selector_btn"
-            android:text="Volley"
-            android:onClick="onClick"
-            android:textSize="13sp" />
-
-    </LinearLayout>
-
-
-</ScrollView>
+</android.support.constraint.ConstraintLayout>
