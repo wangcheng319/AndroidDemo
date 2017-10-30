@@ -18,6 +18,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Consumer;
 import vico.xin.mvpdemo.R;
+import vico.xin.mvpdemo.fragment.FragmentFour;
 
 /**
  * Created by wangc on 2017/5/18
@@ -51,5 +52,13 @@ public class BaseActivity extends AppCompatActivity {
 
                     }
                 });
+        FragmentFour fragmentFour = new FragmentFour();
+        fragmentFour.setArguments(new Bundle());
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        }).start();
     }
 }
