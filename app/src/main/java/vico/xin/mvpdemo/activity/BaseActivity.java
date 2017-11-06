@@ -1,14 +1,21 @@
 package vico.xin.mvpdemo.activity;
 
 import android.app.ProgressDialog;
+import android.media.MediaCodec;
+import android.media.MediaFormat;
 import android.os.Bundle;
+import android.os.Looper;
+import android.os.MessageQueue;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+
+import java.io.IOException;
 
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
@@ -36,29 +43,12 @@ public class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
 
-        progressDialog = new ProgressDialog(this);
-        none = (TextView) findViewById(R.id.tv_none);
-        error = (TextView) findViewById(R.id.tv_error);
-        Flowable.create(new FlowableOnSubscribe<String>() {
+        findViewById(R.id.btn_to_module_java).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void subscribe(@NonNull FlowableEmitter<String> e) throws Exception {
-                e.onNext("hello");
+            public void onClick(View v) {
 
             }
-        }, BackpressureStrategy.BUFFER).subscribeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<String>() {
-                    @Override
-                    public void accept(@NonNull String s) throws Exception {
+        });
 
-                    }
-                });
-        FragmentFour fragmentFour = new FragmentFour();
-        fragmentFour.setArguments(new Bundle());
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-
-            }
-        }).start();
     }
 }

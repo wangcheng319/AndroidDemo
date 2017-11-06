@@ -32,6 +32,7 @@ import android.widget.Toast;
 
 import java.nio.ByteBuffer;
 import java.util.Arrays;
+import java.util.HashMap;
 
 import vico.xin.mvpdemo.R;
 
@@ -144,6 +145,7 @@ public class Camera2Activity extends Activity {
         public void onOpened(@NonNull CameraDevice camera) {
             //摄像头打开
             cameraDevice = camera;
+            int i = 0;
             //开始预览
             takePreview();
         }

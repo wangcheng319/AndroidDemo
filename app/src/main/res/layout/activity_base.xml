@@ -19,4 +19,11 @@
         android:visibility="gone"
         android:text="请求错误"/>
 
+
+    <Button
+        android:id="@+id/btn_to_module_java"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="to_module_java"/>
+
 </LinearLayout>
