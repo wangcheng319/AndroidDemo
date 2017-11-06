@@ -46,7 +46,7 @@ public class BaseActivity extends AppCompatActivity {
         findViewById(R.id.btn_to_module_java).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                //this is from branch1
             }
         });
 
