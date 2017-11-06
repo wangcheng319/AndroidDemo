@@ -42,7 +42,7 @@ public class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
-
+            //this is from branch 1
         findViewById(R.id.btn_to_module_java).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
