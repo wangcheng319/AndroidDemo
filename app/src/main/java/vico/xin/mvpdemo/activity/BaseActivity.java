@@ -8,6 +8,7 @@ import android.os.Looper;
 import android.os.MessageQueue;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
@@ -33,7 +34,7 @@ import vico.xin.mvpdemo.fragment.FragmentFour;
  */
 
 public class BaseActivity extends AppCompatActivity {
-    public  ProgressDialog progressDialog;
+    public ProgressDialog progressDialog;
 
     public TextView none;
     public TextView error;
@@ -42,11 +43,26 @@ public class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
-            //this is from branch 2
+        //this is from branch 2
         findViewById(R.id.btn_to_module_java).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //this is from master
+
+
+                RecyclerView recyclerView = new RecyclerView(BaseActivity.this);
+
+                recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                    @Override
+                    public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                        super.onScrollStateChanged(recyclerView, newState);
+                    }
+
+                    @Override
+                    public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                        super.onScrolled(recyclerView, dx, dy);
+                    }
+                });
             }
         });
 

@@ -7,12 +7,17 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.ImageFormat;
+import android.graphics.Point;
+import android.graphics.Rect;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraCaptureSession;
 import android.hardware.camera2.CameraCharacteristics;
 import android.hardware.camera2.CameraDevice;
 import android.hardware.camera2.CameraManager;
+import android.hardware.camera2.CaptureFailure;
 import android.hardware.camera2.CaptureRequest;
+import android.hardware.camera2.CaptureResult;
+import android.hardware.camera2.TotalCaptureResult;
 import android.media.Image;
 import android.media.ImageReader;
 import android.os.Bundle;
@@ -21,6 +26,7 @@ import android.os.HandlerThread;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
+import android.util.Log;
 import android.util.SparseIntArray;
 import android.view.Surface;
 import android.view.SurfaceHolder;
@@ -34,6 +40,9 @@ import java.nio.ByteBuffer;
 import java.util.Arrays;
 import java.util.HashMap;
 
+import reactcamera.DisplayUtil;
+import reactcamera.FileUtil;
+import reactcamera.MaskView;
 import vico.xin.mvpdemo.R;
 
 /**
@@ -43,8 +52,8 @@ import vico.xin.mvpdemo.R;
 
 public class Camera2Activity extends Activity {
 
-    private ImageView imageView;
     private Button button;
+    private ImageView imageView;
 
     private SurfaceView surfaceView;
     private SurfaceHolder surfaceHolder;
@@ -81,7 +90,6 @@ public class Camera2Activity extends Activity {
 
         surfaceHolder.addCallback(surfaceCallBack);
 
-        imageView = (ImageView) findViewById(R.id.iv);
         button = (Button) findViewById(R.id.take);
 
         button.setOnClickListener(new View.OnClickListener() {
@@ -91,7 +99,12 @@ public class Camera2Activity extends Activity {
             }
         });
 
+
+
+
+
     }
+
 
 
     private void initCamera() {
@@ -103,19 +116,18 @@ public class Camera2Activity extends Activity {
         //获取摄像头管理
         cameraManager = (CameraManager) getSystemService(Context.CAMERA_SERVICE);
         mCameraID = CameraCharacteristics.LENS_FACING_FRONT;
-        imageReader = ImageReader.newInstance(1080, 1920, ImageFormat.JPEG,1);
+        imageReader = ImageReader.newInstance(surfaceView.getWidth(), surfaceView.getHeight(), ImageFormat.JPEG,1);
         imageReader.setOnImageAvailableListener(new ImageReader.OnImageAvailableListener() {
             @Override
             public void onImageAvailable(ImageReader reader) {
+                Toast.makeText(Camera2Activity.this,"拍照成功",Toast.LENGTH_SHORT).show();
                 //处理拍照后得到的图片
                 Image image = reader.acquireNextImage();
                 ByteBuffer buffer = image.getPlanes()[0].getBuffer();
                 byte[] bytes = new byte[buffer.remaining()];
                 buffer.get(bytes);//由缓冲区存入字节数组
                 final Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                if (bitmap != null) {
-                    imageView.setImageBitmap(bitmap);
-                }
+                FileUtil.saveBitmap(bitmap,"原始");
 
                 image.close();
 
@@ -186,6 +198,47 @@ public class Camera2Activity extends Activity {
         }
     };
 
+    CameraCaptureSession.CaptureCallback captureCallback = new CameraCaptureSession.CaptureCallback() {
+        @Override
+        public void onCaptureStarted(@NonNull CameraCaptureSession session, @NonNull CaptureRequest request, long timestamp, long frameNumber) {
+            super.onCaptureStarted(session, request, timestamp, frameNumber);
+            Log.e("===","开始拍照……");
+        }
+
+        @Override
+        public void onCaptureProgressed(@NonNull CameraCaptureSession session, @NonNull CaptureRequest request, @NonNull CaptureResult partialResult) {
+            super.onCaptureProgressed(session, request, partialResult);
+            Log.e("===","拍照中……");
+        }
+
+        @Override
+        public void onCaptureCompleted(@NonNull CameraCaptureSession session, @NonNull CaptureRequest request, @NonNull TotalCaptureResult result) {
+            super.onCaptureCompleted(session, request, result);
+            Log.e("===","拍照完成");
+        }
+
+        @Override
+        public void onCaptureFailed(@NonNull CameraCaptureSession session, @NonNull CaptureRequest request, @NonNull CaptureFailure failure) {
+            super.onCaptureFailed(session, request, failure);
+            Log.e("===","拍照失败");
+        }
+
+        @Override
+        public void onCaptureSequenceCompleted(@NonNull CameraCaptureSession session, int sequenceId, long frameNumber) {
+            super.onCaptureSequenceCompleted(session, sequenceId, frameNumber);
+        }
+
+        @Override
+        public void onCaptureSequenceAborted(@NonNull CameraCaptureSession session, int sequenceId) {
+            super.onCaptureSequenceAborted(session, sequenceId);
+        }
+
+        @Override
+        public void onCaptureBufferLost(@NonNull CameraCaptureSession session, @NonNull CaptureRequest request, @NonNull Surface target, long frameNumber) {
+            super.onCaptureBufferLost(session, request, target, frameNumber);
+        }
+    };
+
 
     /**
      * 开始拍照
@@ -208,7 +261,7 @@ public class Camera2Activity extends Activity {
             captureRequestBuilder.set(CaptureRequest.JPEG_ORIENTATION, ORIENTATIONS.get(rotation));
             //拍照
             CaptureRequest mCaptureRequest = captureRequestBuilder.build();
-            cameraCaptureSession.capture(mCaptureRequest, null, childHandler);
+            cameraCaptureSession.capture(mCaptureRequest, captureCallback, childHandler);
         } catch (CameraAccessException e) {
             e.printStackTrace();
         }

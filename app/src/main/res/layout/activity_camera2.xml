@@ -7,21 +7,27 @@
     android:layout_height="match_parent"
     tools:context="vico.xin.mvpdemo.activity.Camera2Activity">
 
-    <SurfaceView
-        android:id="@+id/sf_view"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp"/>
-
+        android:layout_height="match_parent" >
+        <reactcamera.CameraSurfaceView
+            android:id="@+id/sf_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <reactcamera.MaskView
+            android:id="@+id/maskview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+    </FrameLayout>
 
     <ImageView
         android:id="@+id/iv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/take"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="16dp"
-        android:layout_below="@+id/sf_view"
-        />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitCenter"
+        android:visibility="gone"/>
+
 
     <Button
         android:id="@+id/take"
