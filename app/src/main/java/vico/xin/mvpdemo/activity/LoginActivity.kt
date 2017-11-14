@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit
 /**
  * 登录页面,使用kotlin实现
  */
-class LoginActivity : BaseActivity(), LoginContract.View,View.OnClickListener {
+class LoginActivity : AllContactActivity(), LoginContract.View,View.OnClickListener {
 
     override fun onClick(v: View) {
         when (v.id){
