@@ -7,6 +7,7 @@ import android.media.MediaMuxer;
 import android.os.Bundle;
 import android.os.HandlerThread;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -45,6 +46,7 @@ public class CoordinatorLayoutActivity extends AppCompatActivity {
 
     DaoSession daoSession;
     TextView textView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

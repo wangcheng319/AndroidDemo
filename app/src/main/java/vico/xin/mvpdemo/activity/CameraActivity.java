@@ -42,6 +42,7 @@ public class CameraActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
 
+
         // 无title
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         // 全屏

@@ -23,6 +23,8 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
 
+
+
         //配置数据库
         setupDatabase();
     }

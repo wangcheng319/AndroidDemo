@@ -1,7 +1,9 @@
 package vico.xin.mvpdemo.activity;
 
+import android.app.ActivityManager;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.media.MediaCodec;
@@ -52,6 +54,7 @@ public class AllContactActivity extends AppCompatActivity {
     public TextView textView;
     public TextView error;
     SunView sunView;
+    RecyclerView recyclerView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -65,6 +68,17 @@ public class AllContactActivity extends AppCompatActivity {
         intent.addCategory("android.intent.category.DEFAULT");
         intent.setType("vnd.android.cursor.dir/phone_v2");
         startActivityForResult(intent, 1);
+
+
+
+//        Runtime rt=Runtime.getRuntime();
+//        long maxMemory=rt.maxMemory();
+//        Log.e("+++:","最大内存:"+Long.toString(maxMemory/(1024*1024)));
+//
+//        ActivityManager activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+//        int memorySize = activityManager.getMemoryClass();
+//
+//        Log.e("+++","最大内存:"+memorySize/(1024*1024)+"M");
 
 
     }
