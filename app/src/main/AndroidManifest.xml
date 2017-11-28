@@ -84,8 +84,7 @@
         </activity>
 
 
-        <service android:name=".service.AIDLRemoteService"
-                 android:process=":remote"/>
+
     </application>
 
 </manifest>

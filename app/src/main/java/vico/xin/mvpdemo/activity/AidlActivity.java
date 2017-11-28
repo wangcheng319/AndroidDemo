@@ -12,9 +12,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import store.tyb.vico.xin.remotapp.AIDLRemoteService;
 import vico.xin.mvpdemo.IMyAidlInterface;
 import vico.xin.mvpdemo.R;
-import vico.xin.mvpdemo.service.AIDLRemoteService;
 
 public class AidlActivity extends AppCompatActivity {
 

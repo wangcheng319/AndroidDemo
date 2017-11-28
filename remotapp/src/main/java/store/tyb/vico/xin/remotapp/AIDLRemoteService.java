@@ -1,4 +1,4 @@
-package vico.xin.mvpdemo.service;
+package store.tyb.vico.xin.remotapp;
 
 import android.app.Service;
 import android.content.Intent;
@@ -23,7 +23,7 @@ public class AIDLRemoteService extends Service {
     private final IMyAidlInterface.Stub mBinder=new IMyAidlInterface.Stub(){
         @Override
         public void test(String string) throws RemoteException {
-            Log.d(TAG, "testMethod: "+"this is myAIDLTest");
+            Log.d(TAG, "testMethod: "+string);
         }
     };
 
