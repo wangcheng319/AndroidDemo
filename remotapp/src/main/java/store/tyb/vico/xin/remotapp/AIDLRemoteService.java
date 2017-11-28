@@ -22,8 +22,9 @@ public class AIDLRemoteService extends Service {
 
     private final IMyAidlInterface.Stub mBinder=new IMyAidlInterface.Stub(){
         @Override
-        public void test(String string) throws RemoteException {
+        public String test(String string) throws RemoteException {
             Log.d(TAG, "testMethod: "+string);
+            return "我是remoteapp返回的";
         }
     };
 

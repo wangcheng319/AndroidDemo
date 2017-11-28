@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import store.tyb.vico.xin.remotapp.AIDLRemoteService;
 import vico.xin.mvpdemo.IMyAidlInterface;
@@ -46,7 +47,7 @@ public class AidlActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    mMyAIDL.test("hahaha");
+                 Toast.makeText(AidlActivity.this,mMyAIDL.test("我是app来的"),Toast.LENGTH_SHORT).show();
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 }

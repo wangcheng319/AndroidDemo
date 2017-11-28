@@ -9,5 +9,5 @@ interface IMyAidlInterface {
      * and return values in AIDL.
      */
 
-    void test(String string);
+    String test(String string);
 }
