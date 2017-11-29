@@ -47,7 +47,7 @@ public class AidlActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {
-                 Toast.makeText(AidlActivity.this,mMyAIDL.test("我是app来的"),Toast.LENGTH_SHORT).show();
+                    Log.e("+++",mMyAIDL.test("我是app来的"));
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 }
