@@ -1,6 +1,7 @@
 package vico.xin.mvpdemo.view;
 
 import android.content.Context;
+import android.support.v4.app.JobIntentService;
 import android.support.v4.widget.ViewDragHelper;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -69,7 +70,7 @@ public class DragViewGroup extends FrameLayout {
             @Override
             public void onEdgeDragStarted(int edgeFlags, int pointerId) {
                 super.onEdgeDragStarted(edgeFlags, pointerId);
-
+                //需要自己捕获需要边界处理的view
                 mDragHelper.captureChildView(getChildAt(1),pointerId);
             }
 

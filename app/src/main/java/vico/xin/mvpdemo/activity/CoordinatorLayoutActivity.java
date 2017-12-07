@@ -7,19 +7,14 @@ import android.media.MediaMuxer;
 import android.os.Bundle;
 import android.os.HandlerThread;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
 
 import vico.xin.mvpdemo.R;
-import vico.xin.mvpdemo.app.App;
 import vico.xin.mvpdemo.dto.DaoSession;
-import vico.xin.mvpdemo.dto.Student;
 import vico.xin.mvpdemo.video.InputSurface;
 import vico.xin.mvpdemo.video.OutputSurface;
 import vico.xin.mvpdemo.video.SampleInfo;
@@ -53,35 +48,6 @@ public class CoordinatorLayoutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_coordinator_layout);
         textView  = (TextView) findViewById(R.id.text);
-        daoSession =App.getDaoInstant();
-        /*新增*/
-        findViewById(R.id.add).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Student student = new Student(1,"张三","10");
-                App.getDaoInstant().getStudentDao().insert(student);
-            }
-        });
-
-        /*查询*/
-        findViewById(R.id.query).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                List<Student> students = daoSession.getStudentDao().queryBuilder().build().list();
-                for (Student student : students) {
-                    textView.setText("id:"+student.getId()+"name:"+student.getName()+"age:"+student.getAge());
-                }
-
-            }
-        });
-
-        /*删除*/
-        findViewById(R.id.delete).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                daoSession.getStudentDao().deleteAll();
-            }
-        });
 
 
 

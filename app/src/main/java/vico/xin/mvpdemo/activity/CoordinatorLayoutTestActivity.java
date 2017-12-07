@@ -1,7 +1,9 @@
 package vico.xin.mvpdemo.activity;
 
+import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Scroller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +27,7 @@ public class CoordinatorLayoutTestActivity extends AppCompatActivity {
     CollapsingToolbarLayout collapsingToolbar;
     RecyclerView recyclerView;
     List<String> datas;
+
 
 
     @Override
@@ -73,6 +77,16 @@ public class CoordinatorLayoutTestActivity extends AppCompatActivity {
             if(parent.getChildAdapterPosition(view)==0){
                 outRect.top=space;
             }
+        }
+
+        @Override
+        public void onDrawOver(Canvas c, RecyclerView parent, RecyclerView.State state) {
+            super.onDrawOver(c, parent, state);
+        }
+
+        @Override
+        public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
+            super.onDraw(c, parent, state);
         }
     }
 

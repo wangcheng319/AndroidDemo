@@ -1,26 +1,21 @@
 package vico.xin.mvpdemo.dto;
 
 import org.greenrobot.greendao.annotation.Entity;
-import org.greenrobot.greendao.annotation.Id;
-import org.greenrobot.greendao.annotation.NotNull;
 import org.greenrobot.greendao.annotation.Generated;
 
 /**
- * Created by wangc on 2017/10/26
+ * Created by wangc on 2017/12/7
  * E-MAIL:274281610@QQ.COM
  */
 
 @Entity
 public class Student {
-    @Id
-    private int Id;
 
-
-    @NotNull
+    private String Id;
     private String name;
     private String age;
-    @Generated(hash = 1721670929)
-    public Student(int Id, @NotNull String name, String age) {
+    @Generated(hash = 1003236172)
+    public Student(String Id, String name, String age) {
         this.Id = Id;
         this.name = name;
         this.age = age;
@@ -28,10 +23,10 @@ public class Student {
     @Generated(hash = 1556870573)
     public Student() {
     }
-    public int getId() {
+    public String getId() {
         return this.Id;
     }
-    public void setId(int Id) {
+    public void setId(String Id) {
         this.Id = Id;
     }
     public String getName() {
@@ -46,7 +41,4 @@ public class Student {
     public void setAge(String age) {
         this.age = age;
     }
-
-
-
 }
