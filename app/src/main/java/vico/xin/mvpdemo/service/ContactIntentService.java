@@ -18,6 +18,8 @@ import java.util.Map;
 import vico.xin.mvpdemo.dto.Contact2;
 
 /**
+ * 获取通讯录中修改或者增加的联系人信息
+ *
  * Created by wangc on 2017/12/8
  * E-MAIL:274281610@QQ.COM
  */
