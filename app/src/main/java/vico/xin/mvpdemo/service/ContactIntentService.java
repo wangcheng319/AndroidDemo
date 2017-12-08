@@ -2,9 +2,11 @@ package vico.xin.mvpdemo.service;
 
 import android.app.IntentService;
 import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.Intent;
 import android.database.ContentObserver;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Handler;
 import android.provider.ContactsContract;
 import android.util.Log;
@@ -158,17 +160,24 @@ public class ContactIntentService extends IntentService {
      * @return
      */
     private String getPhoneNumber(Long contactID) {
-            String number = null;
-        ContentResolver cr = getContentResolver();
-        Cursor contactCursor =  cr.query(ContactsContract.RawContacts.CONTENT_URI,
-                    new String[]{ ContactsContract.RawContacts._ID },
-                    ContactsContract.RawContacts.CONTACT_ID + "=" + contactID,
-                    null,
-                    null);
-        while (contactCursor.moveToNext()){
-
+        Uri rawContactUri = ContentUris.withAppendedId(ContactsContract.RawContacts.CONTENT_URI, contactID);
+        Uri entityUri = Uri.withAppendedPath(rawContactUri, ContactsContract.RawContacts.Entity.CONTENT_DIRECTORY);
+        Cursor c = getContentResolver().query(entityUri,
+                new String[]{ContactsContract.RawContacts.SOURCE_ID, ContactsContract.Contacts.Entity.DATA_ID, ContactsContract.RawContacts.Entity.MIMETYPE, ContactsContract.Contacts.Entity.DATA1},
+                null, null, null);
+        try {
+            while (c.moveToNext()) {
+                String sourceId = c.getString(0);
+                if (!c.isNull(1)) {
+                    String mimeType = c.getString(2);
+                    String data = c.getString(3);
+                    return data;
+                }
+            }
+        } finally {
+            c.close();
         }
-                    return number;
+        return "";
     }
 
 }
