@@ -5,4 +5,5 @@ public class Contact2 {
 	public String phone;
 	public long callTimes;
 	public long lastCallTimeMillis;
+	public long vesion;
 }

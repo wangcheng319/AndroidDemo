@@ -84,6 +84,8 @@
         </activity>
         <activity android:name=".activity.AidlActivity">
         </activity>
+
+        <service android:name=".service.ContactIntentService"/>
     </application>
 
 </manifest>

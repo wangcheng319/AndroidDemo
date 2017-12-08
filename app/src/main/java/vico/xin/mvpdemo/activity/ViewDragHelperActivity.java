@@ -1,5 +1,7 @@
 package vico.xin.mvpdemo.activity;
 
+import android.app.IntentService;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +11,7 @@ import vico.xin.mvpdemo.R;
 import vico.xin.mvpdemo.app.App;
 import vico.xin.mvpdemo.dto.Student;
 import vico.xin.mvpdemo.dto.StudentDao;
+import vico.xin.mvpdemo.service.ContactIntentService;
 import vico.xin.mvpdemo.utils.DBHelper;
 
 public class ViewDragHelperActivity extends AppCompatActivity {
@@ -50,7 +53,8 @@ public class ViewDragHelperActivity extends AppCompatActivity {
         findViewById(R.id.delete).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(ViewDragHelperActivity.this,ContactIntentService.class);
+                ViewDragHelperActivity.this.startService(intent);
             }
         });
     }
