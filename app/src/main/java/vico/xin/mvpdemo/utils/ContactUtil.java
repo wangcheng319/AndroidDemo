@@ -90,7 +90,8 @@ public class ContactUtil {
 				contact.phone = phoneNumber;
 				contact.callTimes = phoneCursor.getLong(PHONES_TIMES_CONTACTED);
 				contact.lastCallTimeMillis = phoneCursor.getLong(PHONES_LAST_TIME_CONTACTED);
-				
+				contact.contactID = contactid;
+
 //				mContactsName.add(contactName);
 //				mContactsNumber.add(phoneNumber);
 				

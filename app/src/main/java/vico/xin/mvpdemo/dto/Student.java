@@ -3,6 +3,10 @@ package vico.xin.mvpdemo.dto;
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * Created by wangc on 2017/12/7
  * E-MAIL:274281610@QQ.COM

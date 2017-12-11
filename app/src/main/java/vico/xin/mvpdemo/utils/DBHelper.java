@@ -2,6 +2,8 @@ package vico.xin.mvpdemo.utils;
 
 import android.content.Context;
 
+import vico.xin.mvpdemo.dto.Contact2;
+import vico.xin.mvpdemo.dto.Contact2Dao;
 import vico.xin.mvpdemo.dto.DaoMaster;
 import vico.xin.mvpdemo.dto.DaoSession;
 import vico.xin.mvpdemo.dto.StudentDao;
@@ -19,7 +21,8 @@ public class DBHelper {
     private static DaoMaster daoMaster;
     private static DaoSession daoSession;
 
-    private StudentDao studentDao;
+//    private StudentDao studentDao;
+    private Contact2Dao contact2Dao;
 
     /**
      * 取得DaoMaster
@@ -60,7 +63,8 @@ public class DBHelper {
         instance = new DBHelper();
         // 数据库对象
         DaoSession daoSession = getDaoSession(mContext);
-        instance.setStudentDao(daoSession.getStudentDao());
+//        instance.setStudentDao(daoSession.getStudentDao());
+        instance.setContact2Dao(daoSession.getContact2Dao());
 
     }
 
@@ -70,12 +74,20 @@ public class DBHelper {
         return instance;
     }
 
-    public StudentDao getStudentDao() {
-        return studentDao;
+//    public StudentDao getStudentDao() {
+//        return studentDao;
+//    }
+//
+//    public void setStudentDao(StudentDao studentDao) {
+//        this.studentDao = studentDao;
+//    }
+
+    public Contact2Dao getContact2Dao(){
+        return contact2Dao;
     }
 
-    public void setStudentDao(StudentDao studentDao) {
-        this.studentDao = studentDao;
+    public void setContact2Dao (Contact2Dao contact2Dao){
+        this.contact2Dao = contact2Dao;
     }
 
 }

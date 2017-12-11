@@ -11,14 +11,15 @@ import android.os.Handler;
 import android.provider.ContactsContract;
 import android.util.Log;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 import vico.xin.mvpdemo.dto.Contact2;
+import vico.xin.mvpdemo.dto.Contact2Dao;
+import vico.xin.mvpdemo.utils.DBHelper;
 
 /**
- * 获取通讯录中修改或者增加的联系人信息
+ * 获取通讯录中修改或者增加的联系人信息，将修改的部分传给后台
  *
  * Created by wangc on 2017/12/8
  * E-MAIL:274281610@QQ.COM
@@ -28,13 +29,12 @@ import vico.xin.mvpdemo.dto.Contact2;
 
 public class ContactIntentService extends IntentService {
     //原始的
-    private Map<Long,Contact2> hashMap;
+    private List<Contact2> oldContactLists;
     //修改的
-    private Map<Long,Contact2> hashMap1;
+    private List<Contact2> newContactLists;
 
     public ContactIntentService() {
             super("contactIntentService");
-            // TODO Auto-generated constructor stub
         }
 
         @Override
@@ -45,51 +45,61 @@ public class ContactIntentService extends IntentService {
         @Override
         public void onCreate() {
             super.onCreate();
-            hashMap = new HashMap<>();
-            hashMap1 = new HashMap<>();
+            DBHelper.init(this);
+            oldContactLists = new ArrayList<>();
+            newContactLists = new ArrayList<>();
             initHashMap();
-            getContentResolver().registerContentObserver(ContactsContract.Contacts.CONTENT_URI, true, new contactObserver(new Handler()));
+            getContentResolver().registerContentObserver(ContactsContract.Contacts.CONTENT_URI, true, contactObserver);
 
         }
 
     /**
-     * 监听联系人是否改变
+     * 监听通讯录变化
      */
-    public final class contactObserver extends ContentObserver {
+    private ContentObserver contactObserver = new ContentObserver(new Handler()) {
+        @Override
 
-            public contactObserver(Handler handler) {
-                super(handler);
-            }
+        public boolean deliverSelfNotifications() {
 
-            @Override
-            public void onChange(boolean selfChange) {
-                super.onChange(selfChange);
+            return super.deliverSelfNotifications();
 
-                boolean needUpdate = isContactChanged();
-                if (needUpdate) {
-                    Log.e("+++", "通讯录被修改了");
-
-                    Iterator iter = hashMap1.entrySet().iterator();
-                    while (iter.hasNext()) {
-                        Map.Entry entry = (Map.Entry) iter.next();
-                        Object key = entry.getKey();
-                        Contact2 value = (Contact2) entry.getValue();
-                        Log.e("+++",key + ":" + "姓名："+value.name+"  "+"号码："+value.phone+"   version:"+value.vesion);
-
-                    }
-
-                }
-            }
         }
+
+        @Override
+
+        public void onChange(boolean selfChange) {
+
+            super.onChange(selfChange);
+            boolean needUpdate = isContactChanged();
+            if (needUpdate) {
+                Log.e("+++", "通讯录被修改了:"+newContactLists.size());
+
+                for (int i = 0; i < newContactLists.size(); i++) {
+                    Log.e("+++", "姓名："+newContactLists.get(i).name+"  "+"号码："+newContactLists.get(i).phone+"   version:"+newContactLists.get(i).vesion);
+                }
+                
+                getContentResolver().unregisterContentObserver(contactObserver);
+            }
+
+        }
+    };
 
     /**
      * 记录下RawContacts._ID和对应的version
      */
     public void initHashMap() {
+        //如果本地数据库没有数据，上传全部通讯录
+        if (DBHelper.getInstance().getContact2Dao().queryBuilder().list()==null
+                || DBHelper.getInstance().getContact2Dao().queryBuilder().list().size()<=0){
+
             ContentResolver _contentResolver = getContentResolver();
             Cursor cursor = _contentResolver.query(
                     ContactsContract.RawContacts.CONTENT_URI, null, null, null,
                     null);
+
+            //清空本地数据库
+            oldContactLists.clear();
+            DBHelper.getInstance().getContact2Dao().deleteAll();
 
             while (cursor.moveToNext()) {
                 Long contactID = cursor.getLong(cursor
@@ -102,10 +112,45 @@ public class ContactIntentService extends IntentService {
                 Contact2 contact2 = new Contact2();
                 contact2.vesion = contactVersion;
                 contact2.name = name;
-                hashMap.put(contactID, contact2);
+                contact2.contactID = contactID;
+                oldContactLists.add(contact2);
             }
             cursor.close();
+
+            //去掉重复,因为上面在遍历的时候会循环添加3次
+            for (int i = 0; i < oldContactLists.size(); i++) {
+                for ( int  j  =  oldContactLists.size()  -   1 ; j  >  i; j --) {
+                    if (oldContactLists.get(j).name.equals(oldContactLists.get(i).name)){
+                        oldContactLists.remove(j);
+                    }
+                }
+            }
+
+            Log.e("+++","原始通讯录人数："+oldContactLists.size());
+
+
+            upLoad(oldContactLists);
+        }else{
+         //本地数据库有数据和本地数据库比较后上传修改和增加的联系人信息
+            oldContactLists.addAll(DBHelper.getInstance().getContact2Dao().queryBuilder().list());
+
         }
+    }
+
+    /**
+     * 上传通讯录
+     * @param removeDuplicateContactLists
+     */
+    private void upLoad(List<Contact2> removeDuplicateContactLists) {
+        Log.e("+++","上传完整，修改数据库");
+
+        Contact2Dao contact2Dao =  DBHelper.getInstance().getContact2Dao();
+        for (int i = 0; i < removeDuplicateContactLists.size(); i++) {
+            contact2Dao.insert(removeDuplicateContactLists.get(i));
+        }
+
+        Log.e("+++","数据库原始通讯录人数："+DBHelper.getInstance().getContact2Dao().queryBuilder().list().size());
+    }
 
     /**
      * 判断是否有改变
@@ -119,40 +164,69 @@ public class ContactIntentService extends IntentService {
                     null);
 
             String phoneNumber = null;
-
+            newContactLists.clear();
+            List<Contact2> tempLists = new ArrayList<>();
 
             while (cursor.moveToNext()) {
                 Long contactID = cursor.getLong(cursor
                         .getColumnIndex(ContactsContract.RawContacts._ID));
                 long contactVersion = cursor.getLong(cursor
                         .getColumnIndex(ContactsContract.RawContacts.VERSION));
-                //联系人之前存在
-                if (hashMap.containsKey(contactID)) {
-                    long version = hashMap.get(contactID).vesion;
-                    //version和之前保存的不一致，联系人被修改
-                    if (version != contactVersion) {
-                        phoneNumber = getPhoneNumber(contactID);
-                        String name = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
-                        Contact2 contact2 = new Contact2();
-                        contact2.vesion = contactVersion;
-                        contact2.name = name;
-                        contact2.phone = phoneNumber;
-                        hashMap1.put(contactID,contact2);
-                        theReturn = true;
-                    }
-                }else {
-                    //联系人不存在，新增
-                    phoneNumber = getPhoneNumber(contactID);
-                    String name = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
-                    Contact2 contact2 = new Contact2();
-                    contact2.vesion = contactVersion;
-                    contact2.name = name;
-                    contact2.phone = phoneNumber;
-                    hashMap1.put(contactID,contact2);
-                    theReturn = true;
+                String name = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
+
+                Contact2 contact2 = new Contact2();
+                contact2.vesion = contactVersion;
+                contact2.name = name;
+                contact2.contactID = contactID;
+                tempLists.add(contact2);
+            }
+        cursor.close();
+
+        for (int i = 0; i < tempLists.size(); i++) {
+            for ( int  j  =  tempLists.size()  -   1 ; j  >  i; j --) {
+                if (tempLists.get(j).name.equals(tempLists.get(i).name)){
+                    tempLists.remove(j);
                 }
             }
-            cursor.close();
+        }
+
+
+        List<Long> ids = new ArrayList<>();
+        for (int i = 0; i < oldContactLists.size(); i++) {
+            ids.add(oldContactLists.get(i).contactID);
+        }
+
+        for (int i = 0; i < tempLists.size(); i++) {
+            //联系人之前存在
+            Long contactID = tempLists.get(i).contactID;
+            int index =  ids.indexOf(contactID);
+            if (ids.contains(contactID)) {
+                //老的version
+                long version = oldContactLists.get(index).vesion;
+                //version和之前保存的不一致，联系人被修改
+                if (version != tempLists.get(i).vesion) {
+                    phoneNumber = getPhoneNumber(contactID);
+                    Contact2 contact2 = new Contact2();
+                    contact2.vesion = tempLists.get(i).vesion;
+                    contact2.name = tempLists.get(i).name;
+                    contact2.phone = phoneNumber;
+                    contact2.contactID = tempLists.get(i).contactID;
+                    newContactLists.add(contact2);
+                    theReturn = true;
+                }
+            }else {
+                //联系人不存在，新增
+                phoneNumber = getPhoneNumber(contactID);
+                Contact2 contact2 = new Contact2();
+                contact2.vesion =  tempLists.get(i).vesion;
+                contact2.name = tempLists.get(i).name;
+                contact2.phone = phoneNumber;
+                contact2.contactID = tempLists.get(i).contactID;
+                newContactLists.add(contact2);
+                theReturn = true;
+            }
+        }
+
             return theReturn;
         }
 
@@ -162,6 +236,10 @@ public class ContactIntentService extends IntentService {
      * @return
      */
     private String getPhoneNumber(Long contactID) {
+        /**
+         * The best way to read a raw contact along with all the data associated with it is by using the ContactsContract.RawContacts.Entity directory. If the raw contact has data rows, the Entity cursor will contain a row for each data row. If the raw contact has no data rows, the cursor will still contain one row with the raw contact-level information.
+         */
+        //下面这段代码从google官网copy过来的
         Uri rawContactUri = ContentUris.withAppendedId(ContactsContract.RawContacts.CONTENT_URI, contactID);
         Uri entityUri = Uri.withAppendedPath(rawContactUri, ContactsContract.RawContacts.Entity.CONTENT_DIRECTORY);
         Cursor c = getContentResolver().query(entityUri,

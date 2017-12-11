@@ -7,14 +7,18 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import java.util.Map;
+
 import vico.xin.mvpdemo.R;
 import vico.xin.mvpdemo.app.App;
+import vico.xin.mvpdemo.dto.Contact2;
 import vico.xin.mvpdemo.dto.Student;
 import vico.xin.mvpdemo.dto.StudentDao;
 import vico.xin.mvpdemo.service.ContactIntentService;
 import vico.xin.mvpdemo.utils.DBHelper;
 
 public class ViewDragHelperActivity extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,12 +31,12 @@ public class ViewDragHelperActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                StudentDao studentDao = DBHelper.getInstance().getStudentDao();
-                Student student = new Student();
-                student.setAge("3");
-                student.setName("张三");
-
-                studentDao.insert(student);
+//                StudentDao studentDao = DBHelper.getInstance().getStudentDao();
+//                Student student = new Student();
+//                student.setAge("3");
+//                student.setName("张三");
+//
+//                studentDao.insert(student);
             }
         });
 
@@ -42,9 +46,9 @@ public class ViewDragHelperActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                for (int i = 0; i < DBHelper.getInstance().getStudentDao().queryBuilder().build().list().size(); i++) {
-                    Log.e("+++",DBHelper.getInstance().getStudentDao().queryBuilder().build().list().get(i).getName());
-                }
+//                for (int i = 0; i < DBHelper.getInstance().getStudentDao().queryBuilder().build().list().size(); i++) {
+//                    Log.e("+++",DBHelper.getInstance().getStudentDao().queryBuilder().build().list().get(i).getName());
+//                }
             }
         });
 
