@@ -16,70 +16,69 @@ import vico.xin.mvpdemo.utils.ContactUtil;
 
 /**
  * 通讯录上传
- *
  */
 public class ContactUService extends Service {
-	
-	private String mUid;
 
-	public static Intent getIntent(Context context, String uid){
-		Intent intent = new Intent(context,ContactUService.class);
-		intent.putExtra("uid", uid);
-		return intent;
-	}
+    private String mUid;
 
-	@Override
-	public IBinder onBind(Intent intent) {
-		return null;
-	}
-	
-	@Override
+    public static Intent getIntent(Context context, String uid) {
+        Intent intent = new Intent(context, ContactUService.class);
+        intent.putExtra("uid", uid);
+        return intent;
+    }
+
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
+    }
+
+    @Override
     public void onCreate() {
         super.onCreate();
     }
-	
-	@Override
-	public int onStartCommand(Intent intent, int flags, int startId) {
-		if(intent==null){
-			stopSelf();
-		}
-		
-		mUid = intent.getStringExtra("uid");
-		
-		new Thread(new Runnable() {
-			 @Override
-	            public void run() {
-				 try {
-					 ContactUtil cu = new ContactUtil();
-					 ArrayList<Contact2> list  = cu.getAllContacts(ContactUService.this);
-					 
-					 ContactU c = new ContactU();
-					 c.cid = mUid;
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        if (intent == null) {
+            stopSelf();
+        }
+
+        mUid = intent.getStringExtra("uid");
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    ContactUtil cu = new ContactUtil();
+                    ArrayList<Contact2> list = cu.getAllContacts(ContactUService.this);
+
+                    ContactU c = new ContactU();
+                    c.cid = mUid;
 //					 c.deviceToken = Utils.getUniquePsuedoID();
-					 c.contacts = list;
-					 
-					 if(list!=null && list.size()>0){
-						 Gson gson = new Gson();
-						 String json = gson.toJson(c);
-						 upload(json);
-					 }else{
-						 stopSelf();
-					 }
-				} catch (Exception e) {
-					stopSelf();
-				}
-			 }
-		}).start();
-		
-		return super.onStartCommand(intent, flags, startId);
-	}
-	
-	@Override
+                    c.contacts = list;
+
+                    if (list != null && list.size() > 0) {
+                        Gson gson = new Gson();
+                        String json = gson.toJson(c);
+                        upload(json);
+                    } else {
+                        stopSelf();
+                    }
+                } catch (Exception e) {
+                    stopSelf();
+                }
+            }
+        }).start();
+
+        return super.onStartCommand(intent, flags, startId);
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
     }
 
-	private void upload(String json){
+    private void upload(String json) {
 //		ApiExecutor.getUpLoadInstance().upLoadContact(RRCrypto.encryptAES(json, MyApplication.SECRETKEY))
 //				.subscribeOn(Schedulers.io())
 //				.observeOn(AndroidSchedulers.mainThread())
@@ -103,5 +102,5 @@ public class ContactUService extends Service {
 //						super.onStart();
 //					}
 //				});
-	}
+    }
 }
