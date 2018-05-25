@@ -55,7 +55,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.ViewDragHelperActivity">
+        <activity android:name=".activity.Camera2Activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -86,6 +86,9 @@
         </activity>
 
         <service android:name=".service.ContactIntentService"/>
+
+        <activity android:name=".activity.OcrActivity">
+        </activity>
     </application>
 
 </manifest>

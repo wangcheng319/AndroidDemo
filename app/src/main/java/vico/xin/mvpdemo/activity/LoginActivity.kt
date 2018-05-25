@@ -2,6 +2,7 @@ package vico.xin.mvpdemo.activity
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import com.jakewharton.rxbinding2.view.RxView
 import kotlinx.android.synthetic.main.activity_login.*
@@ -16,6 +17,8 @@ import java.util.concurrent.TimeUnit
  * 登录页面,使用kotlin实现
  */
 class LoginActivity : AllContactActivity(), LoginContract.View,View.OnClickListener {
+
+    var name :String ? = null
 
     override fun onClick(v: View) {
         when (v.id){
@@ -33,9 +36,9 @@ class LoginActivity : AllContactActivity(), LoginContract.View,View.OnClickListe
 
         presenter = LoginPresenter(this)
 
-//        btn.setOnClickListener {
-//            login()
-//        }
+        btn.setOnClickListener {
+            login()
+        }
 
         //rxbinding ,button防抖处理，一秒只响应一次
         RxView.clicks(btn)
@@ -86,6 +89,16 @@ class LoginActivity : AllContactActivity(), LoginContract.View,View.OnClickListe
         text.text = "登录失败：" + s
         text.setTextColor(Color.RED)
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.e("","")
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        Log.e("","")
     }
 
 }

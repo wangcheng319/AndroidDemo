@@ -20,5 +20,6 @@ public class ViewTestActivity extends AppCompatActivity {
 //                startActivity(new Intent(ViewTestActivity.this,MyReactActivity.class));
             }
         });
+
     }
 }

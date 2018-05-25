@@ -31,9 +31,18 @@ android {
         jniLibs.srcDir 'src/main/libs'
         jni.srcDirs = []
     }
+
+    packagingOptions {
+        exclude 'org/apache/commons/codec/language/bm/gen_approx_greeklatin.txt'
+        exclude 'org/apache/commons/codec/language/bm/gen_rules_dutch.txt'
+        exclude 'org/apache/commons/codec/language/bm/gen_exact_any.txt'
+    }
 }
 
 dependencies {
+    configurations {
+        all*.exclude group: 'com.android.support', module: 'support-v13'
+    }
     compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
@@ -62,6 +71,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'org.greenrobot:greendao:3.2.2'
     compile project(':remotapp')
+    implementation files('libs/qcloud-sdk-2.2.7-jar-with-dependencies.jar')
 }
 repositories {
     mavenCentral()

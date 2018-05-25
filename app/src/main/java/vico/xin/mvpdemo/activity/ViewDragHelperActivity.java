@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ListView;
 
 import java.util.Map;
 
@@ -61,5 +62,10 @@ public class ViewDragHelperActivity extends AppCompatActivity {
                 ViewDragHelperActivity.this.startService(intent);
             }
         });
+
+
+        ListView listView = new ListView(this);
+        listView.setSelectionAfterHeaderView();
+        listView.setHeaderDividersEnabled(false);
     }
 }
