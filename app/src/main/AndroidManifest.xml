@@ -55,7 +55,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.Camera2Activity">
+        <activity android:name=".activity.CoordinatorLayoutTestActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -66,7 +66,7 @@
         </activity>
         <activity android:name=".activity.LoginActivity">
         </activity>
-        <activity android:name=".activity.CoordinatorLayoutTestActivity">
+        <activity android:name=".activity.Main6Activity">
         </activity>
         <activity android:name=".activity.RxbindingTestActivity">
         </activity>
@@ -88,6 +88,8 @@
         <service android:name=".service.ContactIntentService"/>
 
         <activity android:name=".activity.OcrActivity">
+        </activity>
+        <activity android:name=".activity.Main5Activity">
         </activity>
     </application>
 

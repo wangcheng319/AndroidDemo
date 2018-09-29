@@ -5,9 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="vico.xin.mvpdemo.activity.ConstraintLayoutTestActivity"
-    tools:layout_constraintHorizontal_weight="1">
-
-
+    tools:context=".activity.Main5Activity">
 
 </android.support.constraint.ConstraintLayout>
